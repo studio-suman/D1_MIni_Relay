@@ -193,7 +193,7 @@ void reconnect() {
       // Generate client name based on MAC address and last 8 bits of microsecond counter
       String clientName;
       clientName += "esp8266-";
-      uint8_t mac[7];
+      uint8_t mac[6];
       WiFi.macAddress(mac);
       clientName += macToStr(mac);
 
