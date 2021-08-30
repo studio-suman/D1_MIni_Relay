@@ -5,7 +5,7 @@
 #include <ArduinoJson.h>
 #include <ArduinoOTA.h>
 #include <math.h>
-#include <ir_Samsung.h>
+#include <ir_Whirlpool.h>
 #include <IRremoteESP8266.h>
 #include <IRsend.h>
 
@@ -22,7 +22,7 @@ PubSubClient client(wifiClient);
   Adding AC functionality to current D1 Mini
 */
 
-IRSamsungAc ac(IR_pin);
+IRWhirlpoolAc ac(IR_pin);
 IRsend irsend(IR_pin);
 
 //Declare prototype functions
@@ -77,7 +77,7 @@ void update()
 
   if (isOn)
   {
-    ac.on();
+    ac.setPowerToggle("on");
     if (isCool)
     {
       Serial.println("Send IR : temp = " + String(setTemp) + " swing = " + String(isSwing) + " Fan Speed : " + String(fanSpeed) + " IsLastOn : " + isLastOn);
@@ -88,20 +88,20 @@ void update()
       lastIsCool = true;
 
       //Set and send commands
-      ac.setMode(kSamsungAcCool);
+      ac.setMode(kWhirlpoolAcCool);
       switch (fanSpeed)
       {
       case (0):
-        ac.setFan(kSamsungAcFanAuto);
+        ac.setFan(kWhirlpoolAcFanAuto);
         break;
       case (1):
-        ac.setFan(kSamsungAcFanLow);
+        ac.setFan(kWhirlpoolAcFanLow);
         break;
       case (2):
-        ac.setFan(kSamsungAcFanMed);
+        ac.setFan(kWhirlpoolAcFanMedium);
         break;
       case (3):
-        ac.setFan(kSamsungAcFanHigh);
+        ac.setFan(kWhirlpoolAcFanHigh);
         break;
       }
 
@@ -110,7 +110,7 @@ void update()
     }
     else
     {
-      ac.setMode(kSamsungAcFan);
+      ac.setMode(kWhirlpoolAcFan);
       lastIsCool = false;
     }
 
@@ -122,7 +122,7 @@ void update()
     isLastOn = false;
 
     //set and send command
-    ac.off();
+    ac.setPowerToggle("off");
     irsend.sendRaw(ac_off, 349, 38);      //I need to send raw for off because Library didn't work.
   }
 }
