@@ -241,7 +241,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       //turn the switch off if the payload is '0' and publish to the MQTT server a confirmation message
      else if (payload[0] == '0'){
        digitalWrite(switchPin2, LOW);
-       client.publish("/house/switchConfirm2/", "0");
+       client.publish("/house2/switchConfirm2/", "0");
        }
      }
      else if (topicStr == "/house2/switch3/") 
