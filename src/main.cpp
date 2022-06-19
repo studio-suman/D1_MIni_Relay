@@ -18,8 +18,9 @@
 #include <DNSServer.h>
 //#include <IRremoteESP8266.h>
 #include <IRrecv.h>
+//#include <RemoteDebug.h>  //https://github.com/JoaoLopesF/RemoteDebug
 
-
+//RemoteDebug Debug;
 
 //EDIT THESE LINES TO MATCH YOUR SETUP
 #define MQTT_SERVER "192.168.1.15"  //your MQTT IP Address
@@ -28,6 +29,7 @@
 #define mqtt_port 1883
 const char* ssid = "Suman Saha";
 const char* password = "rockylotus428";
+#define HOST_NAME "ESP8266-Relay"
 
 //EJ: Data PIN Assignment on WEMOS D1 R2 https://www.wemos.cc/product/d1.html
 // if you are using Arduino UNO, you will need to change the "D1 ~ D4" with the corresponding UNO DATA pin number 
@@ -288,9 +290,11 @@ if (irrecv.decode(&results)) {
                       Serial.println(results.value,HEX);
                       digitalWrite(switchPin1, LOW);   // turn it off when button is pressed
                       itsONled[1] = 0;           // and set its state as off
+                      client.publish("/house2/switchConfirm1/", "0");
                    } else {                      // else if first led is off
                        digitalWrite(switchPin1, HIGH); // turn it on when the button is pressed
                        itsONled[1] = 1;          // and set its state as on
+                       client.publish("/house2/switchConfirm1/", "1");
                    }
                     break; 
                  case code2:
@@ -299,9 +303,11 @@ if (irrecv.decode(&results)) {
                       Serial.println(results.value,HEX);
                       digitalWrite(switchPin2, LOW);
                       itsONled[2] = 0;
+                      client.publish("/house2/switchConfirm2/", "0");
                    } else {
                        digitalWrite(switchPin2, HIGH);
                        itsONled[2] = 1;
+                       client.publish("/house2/switchConfirm2/", "1");
                    }
                     break;       
                 case code3:
@@ -309,9 +315,11 @@ if (irrecv.decode(&results)) {
                     Serial.println("Turning on/off Relay 3: Value Received : ");
                       digitalWrite(switchPin3, LOW);
                       itsONled[3] = 0;
+                      client.publish("/house2/switchConfirm1/", "0");
                    } else {
                        digitalWrite(switchPin3, HIGH);
                        itsONled[3] = 1;
+                       client.publish("/house2/switchConfirm3/", "1");
                    }
                     break; 
                 case code4:
@@ -397,8 +405,13 @@ void setup() {
   pinMode(switchPin4, OUTPUT); // Relay Switch 4
   digitalWrite(switchPin4, LOW);
 
-  //ArduinoOTA.setHostname("My Arduino WEMO"); // A name given to your ESP8266 module when discovering it as a port in ARDUINO IDE
+ 
+
+  ArduinoOTA.setHostname(HOST_NAME); // A name given to your ESP8266 module when discovering it as a port in ARDUINO IDE
   ArduinoOTA.begin(); // OTA initialization
+
+  //Debug.begin(HOST_NAME); // Debugging initialization
+  //Debug.setResetCmdEnabled(true);
 
   //start the serial line for debugging
   Serial.begin(115200);
@@ -435,19 +448,14 @@ void setup() {
 
 void loop(){
 
+
+  //Debug.handle(); // Debugging loop  
   //reconnect if connection is lost
   if (!client.connected() && WiFi.status() == 3) {reconnect();}
 
   //maintain MQTT connection
   client.loop();
 
-/*    if (irrecv.decode(&results)) {
-    unsigned int ircode = results.value;
-    Serial.println(ircode);
-    irrecv.resume();  // Receive the next value
-  }
-  delay(100);
- */
   ir_action();
 
   //MUST delay to allow ESP8266 WIFI functions to run
