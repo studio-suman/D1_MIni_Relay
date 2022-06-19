@@ -456,7 +456,7 @@ void loop(){
   //maintain MQTT connection
   client.loop();
 
-  ir_action();
+  ir_action(); //calling Ir Action
 
   //MUST delay to allow ESP8266 WIFI functions to run
   delay(10); 
