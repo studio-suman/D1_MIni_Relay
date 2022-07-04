@@ -264,7 +264,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
      {
      //turn the switch on if the payload is '1' and publish to the MQTT server a confirmation message
      if(payload[0] == '1'){
-       digitalWrite(switchPin4, HIGH);
+       digitalWrite(switchPin4, LOW);
        client.publish("/house2/switchConfirm4/", "1");
        }
 
@@ -403,7 +403,7 @@ void setup() {
   digitalWrite(switchPin3, LOW);
 
   pinMode(switchPin4, OUTPUT); // Relay Switch 4
-  digitalWrite(switchPin4, HIGH);
+  digitalWrite(switchPin4, LOW);
 
  
 
