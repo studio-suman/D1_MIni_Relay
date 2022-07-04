@@ -403,7 +403,7 @@ void setup() {
   digitalWrite(switchPin3, LOW);
 
   pinMode(switchPin4, OUTPUT); // Relay Switch 4
-  digitalWrite(switchPin4, LOW);
+  digitalWrite(switchPin4, HIGH);
 
  
 
