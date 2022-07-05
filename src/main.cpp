@@ -132,7 +132,7 @@ void reconnect() {
       //EJ: Delete "mqtt_username", and "mqtt_password" here if you are not using any 
       if (client.connect((char*) clientName.c_str(),mqtt_user, mqtt_password)) {  //EJ: Update accordingly with your MQTT account 
       //if (client.connect(mqtt_user, mqtt_password)) {
-        Serial.print("\tMQTT Connected");
+        Serial.print("\tMQTT Connected\n");
         client.subscribe(switchTopic1);
         client.subscribe(switchTopic2);
         client.subscribe(switchTopic3);
@@ -431,16 +431,17 @@ void setup() {
     Serial.println("Enabling IRin");
     irrecv.enableIRIn(); // Start the receiver
 
+    Serial.println(F("START " __FILE__ " from " __DATE__));
     Serial.print(F("Ready to receive IR signals at pin "));
-    Serial.println(RECV_PIN);    Serial.println(F("START " __FILE__ " from " __DATE__));
-
+    Serial.println(RECV_PIN);    
+    
     // In case the interrupt driver crashes on setup, give a clue
     // to the user what's going on.
-    Serial.println("Enabling IRin");
+/*     Serial.println("Enabling IRin");
     irrecv.enableIRIn(); // Start the receiver
 
     Serial.print(F("Ready to receive IR signals at pin "));
-    Serial.println(RECV_PIN);  
+    Serial.println(RECV_PIN); */  
 
 
 }
