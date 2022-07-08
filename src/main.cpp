@@ -10,7 +10,7 @@
 //
 //ESP8266 Simple MQTT switch controller
 
-
+#include <TelnetStream.h>
 #include <PubSubClient.h>
 #include <ESP8266WiFi.h>
 #include <ArduinoOTA.h>
@@ -415,6 +415,9 @@ void setup() {
   //Debug.setResetCmdEnabled(true);
 
   //start the serial line for debugging
+
+  TelnetStream.begin();
+  
   Serial.begin(115200);
   delay(100);
   irrecv.enableIRIn();
@@ -457,6 +460,20 @@ void loop(){
 
   //maintain MQTT connection
   client.loop();
+
+  switch (TelnetStream.read())
+  {
+  case 'R':
+    TelnetStream.stop();
+    delay(100);
+    ESP.reset();
+    break;
+  case 'C':
+    TelnetStream.println("bye bye");
+    TelnetStream.flush();
+    TelnetStream.stop();
+    break;
+  }
 
   ir_action(); //calling Ir Action
 
