@@ -287,7 +287,7 @@ if (irrecv.decode(&results)) {
                  case code1:
                    if(itsONled[1] == 1) {        // if first led is on then
                       Serial.println("Turning on/off Relay 1: Value Received : ");
-                      Serial.println(results.value,HEX);
+                      Serial.print(results.value,HEX);
                       digitalWrite(switchPin1, LOW);   // turn it off when button is pressed
                       itsONled[1] = 0;           // and set its state as off
                       client.publish("/house2/switchConfirm1/", "0");
@@ -300,7 +300,7 @@ if (irrecv.decode(&results)) {
                  case code2:
                    if(itsONled[2] == 1) {
                       Serial.println("Turning on/off Relay 2: Value Received : ");
-                      Serial.println(results.value,HEX);
+                      Serial.print(results.value,HEX);
                       digitalWrite(switchPin2, LOW);
                       itsONled[2] = 0;
                       client.publish("/house2/switchConfirm2/", "0");
@@ -313,6 +313,7 @@ if (irrecv.decode(&results)) {
                 case code3:
                    if(itsONled[3] == 1) {
                     Serial.println("Turning on/off Relay 3: Value Received : ");
+                    Serial.print(results.value,HEX);
                       digitalWrite(switchPin3, LOW);
                       itsONled[3] = 0;
                       client.publish("/house2/switchConfirm1/", "0");
