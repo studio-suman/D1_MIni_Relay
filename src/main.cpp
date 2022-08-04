@@ -141,7 +141,8 @@ void reconnect() {
       }
 
       //otherwise print failed for debugging
-      else{Serial.println("\tFailed."); abort();}
+      //else{Serial.println("\tFailed."); abort();}
+      else{Serial.println("\tFailed.");} // Updated Code to abort() instead of looping
     }
   }
 }
