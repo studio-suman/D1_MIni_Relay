@@ -417,7 +417,7 @@ void setup() {
 
   //start the serial line for debugging
 
-  TelnetStream.begin();
+  //TelnetStream.begin();
   
   Serial.begin(115200);
   delay(100);
@@ -455,6 +455,8 @@ void setup() {
 void loop(){
 
 
+  ir_action(); //calling Ir Action
+
   //Debug.handle(); // Debugging loop  
   //reconnect if connection is lost
   if (!client.connected() && WiFi.status() == 3) {reconnect();}
@@ -462,7 +464,7 @@ void loop(){
   //maintain MQTT connection
   client.loop();
 
-  switch (TelnetStream.read())
+ /*  switch (TelnetStream.read())
   {
   case 'R':
     TelnetStream.stop();
@@ -474,9 +476,9 @@ void loop(){
     TelnetStream.flush();
     TelnetStream.stop();
     break;
-  }
+  } */
 
-  ir_action(); //calling Ir Action
+  //ir_action(); //Prev Position calling Ir Action
 
   //MUST delay to allow ESP8266 WIFI functions to run
   delay(10); 
