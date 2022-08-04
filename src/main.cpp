@@ -141,8 +141,8 @@ void reconnect() {
       }
 
       //otherwise print failed for debugging
-      //else{Serial.println("\tFailed."); abort();}
-      else{Serial.println("\tFailed.");} // Updated Code to abort() instead of looping
+      else{Serial.println("\tFailed."); abort();}
+      //else{Serial.println("\tFailed.");} // Updated Code to abort() instead of looping
     }
   }
 }
@@ -455,7 +455,7 @@ void setup() {
 void loop(){
 
 
-  ir_action(); //calling Ir Action
+  //ir_action(); //calling Ir Action
 
   //Debug.handle(); // Debugging loop  
   //reconnect if connection is lost
@@ -478,7 +478,7 @@ void loop(){
     break;
   } */
 
-  //ir_action(); //Prev Position calling Ir Action
+  ir_action(); //Prev Position calling Ir Action
 
   //MUST delay to allow ESP8266 WIFI functions to run
   delay(10); 
