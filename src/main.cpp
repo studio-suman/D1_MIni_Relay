@@ -442,11 +442,11 @@ void setup() {
     
     // In case the interrupt driver crashes on setup, give a clue
     // to the user what's going on.
-/*     Serial.println("Enabling IRin");
+    Serial.println("Enabling IRin");
     irrecv.enableIRIn(); // Start the receiver
 
     Serial.print(F("Ready to receive IR signals at pin "));
-    Serial.println(RECV_PIN); */  
+    Serial.println(RECV_PIN);
 
 
 }
