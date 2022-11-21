@@ -114,7 +114,6 @@ void reconnect() {
   }
 
 
-
   //make sure we are connected to WIFI before attemping to reconnect to MQTT
   if(WiFi.status() == WL_CONNECTED){
   // Loop until we're reconnected to the MQTT server
