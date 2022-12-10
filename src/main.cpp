@@ -483,11 +483,4 @@ void loop(){
   //MUST delay to allow ESP8266 WIFI functions to run
   delay(10); 
   ArduinoOTA.handle();
-
-
 }
-
-
-
-
-
