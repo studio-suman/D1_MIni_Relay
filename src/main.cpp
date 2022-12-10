@@ -9,8 +9,9 @@
 //Requires PubSubClient found here: https://github.com/knolleary/pubsubclient
 //
 //ESP8266 Simple MQTT switch controller
+//50:02:91:5F:51:85 MAC fr ES8266
 
-#include <TelnetStream.h>
+//#include <TelnetStream.h>
 #include <PubSubClient.h>
 #include <ESP8266WiFi.h>
 #include <ArduinoOTA.h>
