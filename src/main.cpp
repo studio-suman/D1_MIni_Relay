@@ -16,7 +16,7 @@
 #include <ESP8266WiFi.h>
 #include <ArduinoOTA.h>
 #include <ESP8266WebServer.h>
-#include <DNSServer.h>
+#include <DNSServer.h> 
 //#include <IRremoteESP8266.h>
 #include <IRrecv.h>
 //#include <RemoteDebug.h>  //https://github.com/JoaoLopesF/RemoteDebug
@@ -148,7 +148,7 @@ void reconnect() {
 }
 
 
-
+//Handle incoming messages
 void callback(char* topic, byte* payload, unsigned int length) {
 
   //convert topic to string to make it easier to work with
@@ -459,7 +459,8 @@ void loop(){
 
   //Debug.handle(); // Debugging loop  
   //reconnect if connection is lost
-  if (!client.connected() && WiFi.status() == 3) {reconnect();}
+  if (!client.connected() && WiFi.status() == 3) {
+    reconnect();}
 
   //maintain MQTT connection
   client.loop();
@@ -478,7 +479,7 @@ void loop(){
     break;
   } */
 
-  ir_action(); //Prev Position calling Ir Action
+  //ir_action(); //Prev Position calling Ir Action
 
   //MUST delay to allow ESP8266 WIFI functions to run
   delay(10); 
