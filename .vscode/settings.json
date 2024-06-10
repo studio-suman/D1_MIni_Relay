@@ -1,3 +1,29 @@
 {
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/bitbake/lib",
+        "${workspaceFolder}\\meta\\lib"
+    ],
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/bitbake/lib",
+        "${workspaceFolder}\\meta\\lib"
+    ],
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.formatOnType": true,
+        "editor.wordBasedSuggestions": "off",
+        "editor.inlineSuggest.suppressSuggestions": false,
+        "files.trimTrailingWhitespace": false
+    },
+    "[shellscript]": {
+        "files.eol": "\n",
+        "files.trimTrailingWhitespace": false
+    },
+    "files.associations": {
+        "*.pl": "perl",
+        "*.js": "javascript",
+        "*.rmd": "markdown",
+        "*.conf": "bitbake",
+        "*.inc": "bitbake"
+    }
 }

@@ -10,6 +10,7 @@
 //
 //ESP8266 Simple MQTT switch controller
 //50:02:91:5F:51:85 MAC fr ES8266
+//98:f4:ab:da:a1:52 MAC fr Suman Home
 
 //#include <TelnetStream.h>
 #include <PubSubClient.h>
@@ -30,7 +31,7 @@
 #define mqtt_port 1883
 const char* ssid = "Suman Saha";
 const char* password = "rockylotus428";
-#define HOST_NAME "ESP8266-Relay"
+#define HOST_NAME "ESP8266-Suman"
 
 //EJ: Data PIN Assignment on WEMOS D1 R2 https://www.wemos.cc/product/d1.html
 // if you are using Arduino UNO, you will need to change the "D1 ~ D4" with the corresponding UNO DATA pin number 
@@ -44,13 +45,14 @@ const int switchPin4 = D4;
 //EJ: Refer to my YAML component entry
 //EJ: feel free to replicate the line if you have more relay switch to control, but dont forget to increment the number suffix so as increase switch logics in loop()
 
-char const* switchTopic1 = "/house2/switch1/";
-char const* switchTopic2 = "/house2/switch2/";
-char const* switchTopic3 = "/house2/switch3/";
-char const* switchTopic4 = "/house2/switch4/";
+char const* switchTopic1 = "/house/switch1/";
+char const* switchTopic2 = "/house/switch2/";
+char const* switchTopic3 = "/house/switch3/";
+char const* switchTopic4 = "/house/switch4/";
 
 //Iremote definations for Remote pin
 
+/*
 
 #define code1  16894007 //0x1FED827  // code received from button 2 (STB)
 #define code2  16898087 //0x1FEF807  // code received from button 3 (STB)
@@ -70,6 +72,8 @@ IRrecv irrecv(RECV_PIN); // create a new instance of the IR receiver
  
 decode_results results;
 //IrReceiver.decodedIRData
+
+*/
 
 void callback(char* topic, byte* payload, unsigned int length);
 
@@ -219,9 +223,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
        client.publish("/house/switchConfirm4/", "0");
        }
      }
+  /*
+/***** Second ESP Configuration start here **** / 
      else if (topicStr == "/house2/switch1/") 
-     {
+     
+  {
      //turn the switch on if the payload is '1' and publish to the MQTT server a confirmation message
+
+
      if(payload[0] == '1'){
        digitalWrite(switchPin1, HIGH);
        client.publish("/house2/switchConfirm1/", "1");
@@ -275,7 +284,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
        client.publish("/house2/switchConfirm4/", "0");
        }
      }
+
+  */
 }
+
+/*
 
 void ir_action() {
 if (irrecv.decode(&results)) {
@@ -393,6 +406,9 @@ if (irrecv.decode(&results)) {
   }
 }  
 
+
+*/
+
 void setup() {
   //initialize the switch as an output and set to LOW (off)
   pinMode(switchPin1, OUTPUT); // Relay Switch 1
@@ -421,7 +437,7 @@ void setup() {
   
   Serial.begin(115200);
   delay(100);
-  irrecv.enableIRIn();
+  //irrecv.enableIRIn();
   //start wifi subsystem
   WiFi.begin(ssid, password);
   //attempt to connect to the WIFI network and then connect to the MQTT server
@@ -434,26 +450,25 @@ void setup() {
     // In case the interrupt driver crashes on setup, give a clue
     // to the user what's going on.
     Serial.println("Enabling IRin");
-    irrecv.enableIRIn(); // Start the receiver
+    //irrecv.enableIRIn(); // Start the receiver
 
     Serial.println(F("START " __FILE__ " from " __DATE__));
     Serial.print(F("Ready to receive IR signals at pin "));
-    Serial.println(RECV_PIN);    
+    //Serial.println(RECV_PIN);    
     
     // In case the interrupt driver crashes on setup, give a clue
     // to the user what's going on.
     Serial.println("Enabling IRin");
-    irrecv.enableIRIn(); // Start the receiver
+    //irrecv.enableIRIn(); // Start the receiver
 
     Serial.print(F("Ready to receive IR signals at pin "));
-    Serial.println(RECV_PIN);
+    //Serial.println(RECV_PIN);
 
 
 }
 
 
-void loop(){
-
+void loop() {
 
   //ir_action(); //calling Ir Action
 
