@@ -45,9 +45,9 @@ const int switchPin4 = D4;
 //EJ: Refer to my YAML component entry
 //EJ: feel free to replicate the line if you have more relay switch to control, but dont forget to increment the number suffix so as increase switch logics in loop()
 
-char const* switchTopic1 = "/house/switch1/";
-char const* switchTopic2 = "/house/switch2/";
-char const* switchTopic3 = "/house/switch3/";
+char const* switchTopic1 = "/house/switch1/"; //Tubelight - suman
+char const* switchTopic2 = "/house/switch2/"; //Fan - suman
+char const* switchTopic3 = "/house/switch3/"; //NightLamp - suman
 char const* switchTopic4 = "/house/switch4/";
 
 //Iremote definations for Remote pin
@@ -184,7 +184,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
      else if (topicStr == "/house/switch2/") 
      {
      //turn the switch on if the payload is '1' and publish to the MQTT server a confirmation message
-     if(payload[0] == '1'){
+      if(payload[0] == '1'){
        digitalWrite(switchPin2, HIGH);
        client.publish("/house/switchConfirm2/", "1");
        }
@@ -198,7 +198,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
      else if (topicStr == "/house/switch3/") 
      {
      //turn the switch on if the payload is '1' and publish to the MQTT server a confirmation message
-     if(payload[0] == '1'){
+      if(payload[0] == '1'){
        digitalWrite(switchPin3, HIGH);
        client.publish("/house/switchConfirm3/", "1");
        }
@@ -212,7 +212,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
      else if (topicStr == "/house/switch4/") 
      {
      //turn the switch on if the payload is '1' and publish to the MQTT server a confirmation message
-     if(payload[0] == '1'){
+      if(payload[0] == '1'){
        digitalWrite(switchPin4, HIGH);
        client.publish("/house/switchConfirm4/", "1");
        }
@@ -223,8 +223,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
        client.publish("/house/switchConfirm4/", "0");
        }
      }
-  /*
-/***** Second ESP Configuration start here **** / 
+
+/*
+
+// Second ESP Configuration start here
+
      else if (topicStr == "/house2/switch1/") 
      
   {
@@ -286,6 +289,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
      }
 
   */
+
+
 }
 
 /*
@@ -475,7 +480,8 @@ void loop() {
   //Debug.handle(); // Debugging loop  
   //reconnect if connection is lost
   if (!client.connected() && WiFi.status() == 3) {
-    reconnect();}
+    reconnect();
+    }
 
   //maintain MQTT connection
   client.loop();
