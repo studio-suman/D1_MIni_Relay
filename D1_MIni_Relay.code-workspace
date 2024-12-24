@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.pl": "perl",
+			"*.js": "javascript",
+			"*.rmd": "markdown",
+			"*.conf": "bitbake",
+			"*.inc": "bitbake"
+		},
+		"python.autoComplete.extraPaths": [
+			"${workspaceFolder}/bitbake/lib",
+			"${workspaceFolder}\\meta\\lib"
+		],
+		"python.analysis.extraPaths": [
+			"${workspaceFolder}/bitbake/lib",
+			"${workspaceFolder}\\meta\\lib"
+		]
+	}
+}
