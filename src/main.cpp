@@ -39,7 +39,7 @@ const char* password = "rockylotus428";
 const int switchPin1 = D1;
 const int switchPin2 = D2;
 const int switchPin3 = D3;
-const int switchPin4 = D4;
+const int switchPin4 = D5;
 
 //EJ: These are the MQTT Topic that will be used to manage the state of Relays 1 ~ 4
 //EJ: Refer to my YAML component entry
@@ -139,6 +139,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println("Callback update.");
   Serial.print("Topic: ");
   Serial.println(topicStr);
+  Serial.println("Payload: " + payload[0]);
 
  // EJ: copy and paste this whole else-if block, should you need to control more switches  
    if (topicStr == "/house/switch1/") //Tubelight - suman
@@ -157,7 +158,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
        }
      }
 
-  /*
+
   else if (topicStr == "/house/switch2/") //Fan - suman
      {
      //turn the switch on if the payload is '1' and publish to the MQTT server a confirmation message
@@ -172,7 +173,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
        client.publish("/house/switchConfirm2/", "0");
        }
      }
-*/
+
   else if (topicStr == "/house/switch3/") //NightLamp - suman
      {
      //turn the switch on if the payload is '1' and publish to the MQTT server a confirmation message
@@ -202,9 +203,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
        client.publish("/house/switchConfirm4/", "0");
        }
      }
+   
 }
-
-
 
 void setup() {
   //initialize the switch as an output and set to LOW (off)
@@ -219,8 +219,6 @@ void setup() {
 
   pinMode(switchPin4, OUTPUT); // Relay Switch 4
   digitalWrite(switchPin4, LOW);
-
- 
 
   ArduinoOTA.setHostname(HOST_NAME); // A name given to your ESP8266 module when discovering it as a port in ARDUINO IDE
   ArduinoOTA.begin(); // OTA initialization
